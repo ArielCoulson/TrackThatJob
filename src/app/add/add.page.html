@@ -11,10 +11,114 @@
               <ion-icon name="contact"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-toolbar>
+        <ion-title>Add an App</ion-title>
+    </ion-toolbar>
   </div>
 </ion-header>
 
 <ion-content>
+
+  <form [formGroup] = "addForm">
+    <ion-list>
+      <ion-list-header>
+        Company Information
+      </ion-list-header>
+
+      <ion-item>
+          <ion-label>Company: </ion-label>
+          <ion-input formControlName="company" type="text" placeholder="Company Name"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Job Title: </ion-label>
+          <ion-input formControlName="jobTitle" type="text" placeholder="Job Title"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Description: </ion-label>
+          <ion-input formControlName="jobDescription" type="text" placeholder="description"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Link: </ion-label>
+          <ion-input formControlName="jobLink" type="text" placeholder="link"> </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+          Contact Information
+      </ion-list-header>
+      <ion-item>
+          <ion-label>Email: </ion-label>
+          <ion-input formControlName="email" type="text" placeholder="email"> </ion-input>
+      </ion-item>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.email">
+          <div class="error-message" *ngIf="addForm.get('email').hasError(error.type) && (addForm.get('email').dirty || addForm.get('email').touched)">
+            {{ error.message}}
+          </div>
+  
+        </ng-container>
+      </div>
+      <ion-item>
+          <ion-label>Phone: </ion-label>
+          <ion-input formControlName="phone" type="text" placeholder="(xxx) xxx-xxxx"> </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+          Status
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Date Applied: </ion-label>
+        <ion-input formControlName="dateApplied" type="text" placeholder="mm/dd/yyyy"> </ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>Status:</ion-label>
+        <ion-select formControlName="status">
+            <ion-select-option value="applied">Applied</ion-select-option>
+            <ion-select-option value="inprogress">In Progress</ion-select-option>
+            <ion-select-option value="interview">Interview</ion-select-option>
+            <ion-select-option value="offer">Offer</ion-select-option>
+            <ion-select-option value="denied">Applied</ion-select-option>
+        </ion-select>
+      </ion-item> 
+
+      <div class="interview" *ngIf="isInterview()">
+          <ion-item>
+              <ion-label>Interview Date: </ion-label>
+              <ion-input formControlName="dateInterview" type="text" placeholder="mm/dd/yyyy"> </ion-input>
+          </ion-item> 
+          <ion-item>
+              <ion-label>Location: </ion-label>
+              <ion-input formControlName="locationInterview" type="text" placeholder="123 Main Street USA"> </ion-input>
+          </ion-item> 
+          <ion-item>
+              <ion-label>Notes: </ion-label>
+              <ion-input formControlName="notesInterview" type="text" placeholder="any additional info"> </ion-input>
+          </ion-item> 
+      </div>
+
+      <div class="interview" *ngIf="isOffer()">
+          <ion-item>
+              <ion-label>Amount Annually: </ion-label>
+              <ion-input formControlName="amountOffer" type="text" placeholder="$xx,xxx"> </ion-input>
+          </ion-item> 
+          <ion-item>
+              <ion-label>Accept By: </ion-label>
+              <ion-input formControlName="dateOffer" type="text" placeholder="mm/dd/yyyy"> </ion-input>
+          </ion-item> 
+      </div>
+
+ 
+    </ion-list>
+    <ion-button (click) = "add()" [disabled]="!addForm.valid" shape="round" size="default"  expand="block">Add</ion-button>
+  </form>
+
+
+    
 
 </ion-content>
