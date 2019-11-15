@@ -23,13 +23,13 @@
     </ion-list-header>
 
     <!--This is where we will generate a list of applications using Angular/JS-->
-    <ion-item>
-      <!--Status block will change colors. Company, position, app status-->
+    <ion-item button [routerLink]="['/application', application.id]" *ngFor ="let application of applications">
+      <!--Status block will change colors. Lines under label are Company, position, app status-->
       <ion-icon name="square" class="in-progress"></ion-icon>
       <ion-label>
-        <h2>Info Tech</h2>
-        <h3>Backend Developer</h3>
-        <p>In progress</p>  
+        <h2>{{ application.company }}</h2>
+        <h3>{{ application.job_title}}</h3>
+        <p>{{ application.status }}</p>  
       </ion-label>
       <!--We need to create a component to animate this-->
       <ion-icon name="heart-empty"></ion-icon>
