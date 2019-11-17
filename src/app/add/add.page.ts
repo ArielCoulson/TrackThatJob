@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationService, Application } from 'src/app/services/application.service'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add',
@@ -50,6 +51,7 @@ export class AddPage implements OnInit {
     }
     return false;
   }
+  
 
   isOffer(){
     if(this.addForm.value.status == 'offer'){

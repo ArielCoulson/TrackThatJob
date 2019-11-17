@@ -36,15 +36,35 @@ export class ApplicationService {
   private applicationCollection: AngularFirestoreCollection<Application>;
 
   /**
-   * This seems way easier. Trying to understand the point of a service. May be too complex for this app
-   * afs.collection('/applications', ref => ref.orderBy('date_applied').where('date_applied', '>', currentTime)).valueChanges()
-    .subscribe(result => {
-      this.applications = result;
-    })
+   * 
+   * For the constructor below, we need to change it to grab applications from the USER
+   * EX:
+        * constructor(private db: AngularFirestore,
+                private afAuth: AngularFireAuth,
+                private authService: AuthService) {
+      let currentUser = this.authService.getCurrentUser();
+      if(this.afAuth.auth.currentUser) {
+        let user = this.afAuth.auth.currentUser.uid;
+      }
+
+      if (currentUser) {
+        this.refreshApplicationCollection(currentUser.uid)
+      }
+      }
+      refreshApplicationCollection(userId) {
+      this.applicationCollection = this.afs.collection('users').doc(nlW6XvYgazNtRxkREsaB).collection<Application>('applications');
+        this.applications = this.applicationCollection.snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return {id, ... data};
+          }))
+        )
+      }
    */
 
   constructor(private afs: AngularFirestore) {
-    this.applicationCollection = this.afs.collection<Application>('applications');
+    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection<Application>('applications');
     this.applications = this.applicationCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -75,6 +95,7 @@ export class ApplicationService {
   }
  
   updateApplication(application: Application): Promise<void> {
+    console.log("Application ID: " + application.id)
     return this.applicationCollection.doc(application.id).update(
       { company: application.company,
         contact: {
