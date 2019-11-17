@@ -23,7 +23,10 @@ export interface Application {
       location: string,
       notes: string
     },
-    offer: string
+    offer: {
+      amount: string,
+      date: Date
+    }
   }
 }
 
