@@ -4,6 +4,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
+import { ApplicationService, Application } from 'src/app/services/application.service';
 
 @Component({
   selector: 'app-add',
@@ -78,7 +79,7 @@ export class AddPage implements OnInit {
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
     theApplication.date_applied = this.addForm.value.dateApplied;
-<<<<<<< HEAD
+
     theApplication.status_info = {interview: {date: defaultDate,location:"", notes:""}, offer:{amount:"",accept_by: defaultDate}};
     theApplication.status_info.interview.date = this.addForm.value.dateInterviewed;
     theApplication.status_info.interview.location = this.addForm.value.loationInterview;
@@ -88,9 +89,9 @@ export class AddPage implements OnInit {
 
 
     this.applicationService.addApplication(theApplication);
-=======
+
     theApplication.status_info = {interview:{date:defaultDate,location:"",notes:""},offer:{accept_by:defaultDate,amount:""}};
->>>>>>> 38d3709d3c3305b264f7dc75560a25a326f2b933
+
 
     if(this.addForm.value.dateInterview != undefined)
       theApplication.status_info.interview.date = this.addForm.value.dateInterview;
