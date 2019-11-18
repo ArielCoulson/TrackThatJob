@@ -5,6 +5,8 @@ import { tap, map } from 'rxjs/operators';
 import { LoadingController, AlertController } from '@ionic/angular';
 /* import { AngularFireAuth } from 'angularfire2/auth'; */
 import { ApplicationService, Application } from 'src/app/services/application.service'
+import { FilterComponent } from 'src/app/filter/filter.component';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,8 @@ export class HomePage implements OnInit {
   private applicationCollection: AngularFirestoreCollection<Application>;
   private user: Observable<firebase.User>;
 
-  constructor(private applicationService: ApplicationService, private afs: AngularFirestore, public loadingCtrl: LoadingController,) {
+  constructor(private applicationService: ApplicationService, private afs: AngularFirestore, 
+    public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
     this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     }
 
@@ -49,17 +52,20 @@ export class HomePage implements OnInit {
     var icon: string;
 
     switch(stat){
-      case 'In Progress':
+      case 'inprogress':
         icon = 'time';
         break;
-      case 'Applied':
+      case 'applied':
         icon = 'filing';
         break;
-      case 'Interview':
+      case 'interview':
         icon = 'briefcase';
         break;
-      case 'Offer':
+      case 'offer':
         icon = 'trophy';
+        break;
+      case 'denied':
+        icon = 'close';
         break;
     }
 
@@ -70,7 +76,7 @@ export class HomePage implements OnInit {
     this.applications = this.loadedApps;
   }
 
-  filterApps(evt) {
+  filterSearch(evt) {
     this.initializeItems();
   
     const searchTerm = evt.srcElement.value;
@@ -96,7 +102,19 @@ export class HomePage implements OnInit {
   openApp(){
     console.log("You clicked me!")
   }
+
+  async filterButton(ev: any) {
+    const popover = await this.popoverCtrl.create({
+        component: FilterComponent,
+        event: ev,
+        animated: true,
+        showBackdrop: true
+    });
+    return await popover.present();
+  }
 }
+
+
 
 
 
