@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApplicationService, Application } from 'src/app/services/application.service'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { ApplicationService, Application } from 'src/app/services/application.service';
@@ -77,12 +76,12 @@ export class AddPage implements OnInit {
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
     theApplication.date_applied = this.addForm.value.dateApplied;
-    theApplication.status_info = {interview: {date: defaultDate,location:"", notes:""}, offer:{amount:"",date:defaultDate}};
+    theApplication.status_info = {interview: {date: defaultDate,location:"", notes:""}, offer:{amount:"",accept_by: defaultDate}};
     theApplication.status_info.interview.date = this.addForm.value.dateInterviewed;
     theApplication.status_info.interview.location = this.addForm.value.loationInterview;
     theApplication.status_info.interview.notes = this.addForm.value.notesInterview;
     theApplication.status_info.offer.amount = this.addForm.value.amountOffer;
-    theApplication.status_info.offer.date = this.addForm.value.dateOffer;
+    theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
 
     this.applicationService.addApplication(theApplication);

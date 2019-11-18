@@ -11,10 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule, FirebaseNameOrConfigToken } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, FilterComponent],
+  entryComponents: [FilterComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFirestoreModule, AngularFireModule.initializeApp(environment.firebase)],
   providers: [
     AngularFirestore,
