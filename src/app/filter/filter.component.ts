@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, NavParams, Events } from '@ionic/angular';
-import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
+//import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 
 @Component({
   selector: 'app-filter',
