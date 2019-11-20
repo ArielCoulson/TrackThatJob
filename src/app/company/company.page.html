@@ -1,0 +1,97 @@
+<ion-header>
+  <div class="toolbar">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button routerLink='/home'>
+              <ion-icon name="home"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button>
+              <ion-icon name="contact"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Application Info</ion-title>
+    </ion-toolbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <form>
+      <ion-list *ngIf = "application">
+          <ion-item>
+              <ion-label>Company: </ion-label>
+              <ion-input type="text"  value = "{{application.company}}" Readonly> </ion-input>
+          </ion-item>
+      
+          <ion-item>
+              <ion-label>Job Title: </ion-label>
+              <ion-input type="text"  value = "{{application.job_title}}" Readonly> </ion-input>
+          </ion-item>
+      
+          <ion-item>
+              <ion-label>Description: </ion-label>
+              <ion-input type="text"  value = "{{application.description}}" Readonly> </ion-input>
+          </ion-item>
+      
+          <ion-item>
+              <ion-label>Link: </ion-label>
+              <ion-input type="text"  value = "{{application.link}}" Readonly> </ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf = "application">
+          <ion-list-header>
+              Contact Information
+          </ion-list-header>
+          <ion-item>
+              <ion-label>Email: </ion-label>
+              <ion-input type="text"  value = "{{application.contact.email}}" Readonly> </ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label>Phone: </ion-label>
+              <ion-input type="text"  value = "{{application.contact.phone}}" Readonly> </ion-input>
+          </ion-item>
+        </ion-list>
+      <ion-list *ngIf = "application">
+        <ion-list-header>
+          Status
+        </ion-list-header>
+        <ion-item>
+            <ion-label>Date Applied: </ion-label>
+            <ion-input type="text"  value = "{{application.date_applied}}" Readonly> </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Status: </ion-label>
+            <ion-input type="text"  value = "{{application.status}}" Readonly> </ion-input>
+        </ion-item>
+      </ion-list>
+      <div *ngIf = "application">
+          <div  *ngIf="application.status === 'interview'">
+              <ion-item>
+                  <ion-label>Interview Date: </ion-label>
+                  <ion-input type="text"  value = "{{application.status_info.interview.date}}" Readonly> </ion-input>
+              </ion-item> 
+              <ion-item>
+                  <ion-label>Location: </ion-label>
+                  <ion-input type="text"  value = "{{application.status_info.interview.location}}" Readonly> </ion-input>
+              </ion-item> 
+              <ion-item>
+                  <ion-label>Notes: </ion-label>
+                  <ion-input type="text"  value = "{{application.status_info.interview.notes}}" Readonly> </ion-input>
+              </ion-item> 
+          </div>
+          <div  *ngIf="application.status === 'offer'">
+              <ion-item>
+                  <ion-label>Amount Annually: </ion-label>
+                  <ion-input type="text"  value = "{{application.status_info.offer.amount}}" Readonly> </ion-input>
+              </ion-item> 
+              <ion-item>
+                  <ion-label>Accept By: </ion-label>
+                  <ion-input type="text"  value = "{{application.status_info.offer.accept_by}}" Readonly> </ion-input>
+              </ion-item> 
+          </div>
+      </div>
+  </form>
+  
+
+</ion-content>

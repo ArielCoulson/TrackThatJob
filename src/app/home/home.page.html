@@ -25,7 +25,7 @@
       <ion-item button (click)="openApp()">
         <!--Status block will change colors. Lines under label are Company, position, app status-->
         <ion-icon [name]="statusIcon(application.status)" class="status-indicator"></ion-icon>
-        <ion-label class='app-label'>
+        <ion-label class='app-label' routerLink = '/company/{{application.id}}'>
           <h2>{{ application.company }}</h2>
           <h3>{{ application.job_title }}</h3>
           <h4>{{ application.status }}</h4>  
