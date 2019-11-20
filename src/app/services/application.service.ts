@@ -89,8 +89,8 @@ export class ApplicationService {
     return this.applicationCollection.doc<Application>(id).valueChanges().pipe(
       take(1),
       map(application => {
-        application.id = id;
-        return this.application
+        this.application = application;
+        return this.application;
       })
     );
   }
