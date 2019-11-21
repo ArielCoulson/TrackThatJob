@@ -7,6 +7,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
+import { setupPlatforms } from '@ionic/core/dist/types/utils/platform';
 
 @Component({
   selector: 'app-company',
@@ -16,6 +17,7 @@ import { IfStmt } from '@angular/compiler';
 export class CompanyPage implements OnInit {
   
   private application: Application;
+  private applicationTest: Application;
   private id : string;
   addForm: FormGroup;
   private applicationCollection: AngularFirestoreCollection<Application>;
@@ -26,7 +28,9 @@ export class CompanyPage implements OnInit {
     this.id = route.snapshot.params.id;
     this.applicationService.getApplication(this.id).subscribe(result => {
         this.application = result;
+        this.setupTheForm(); 
     });
+
     this.addForm = new FormGroup({
       email: new FormControl(''),
       company: new FormControl('',Validators.compose([
@@ -44,16 +48,52 @@ export class CompanyPage implements OnInit {
       dateOffer: new FormControl(''),
       amountOffer: new FormControl('') 
     });
+
+    //console.log(this.application.company);
+  }
+
+  setupTheForm(){
+    this.addForm = new FormGroup({
+      email: new FormControl(this.application.contact.email),
+      company: new FormControl(this.application.company,Validators.compose([
+        Validators.required
+      ])),
+      jobTitle: new FormControl(this.application.job_title),
+      jobDescription: new FormControl(this.application.description),
+      jobLink: new FormControl(this.application.link),
+      phone: new FormControl(this.application.contact.phone),
+      status: new FormControl(this.application.status),
+      dateApplied: new FormControl(this.application.date_applied),
+      dateInterview: new FormControl(this.application.status_info.interview.date),
+      locationInterview: new FormControl(this.application.status_info.interview.location),
+      notesInterview: new FormControl(this.application.status_info.interview.notes),
+      dateOffer: new FormControl(this.application.status_info.offer.accept_by),
+      amountOffer: new FormControl(this.application.status_info.offer.amount) 
+    });
   }
 
   ngOnInit() {
     console.log("set");
     this.read = true;
+  
   }
 
   editApp(){
     this.read = false;
-    console.log("edit app");
+    this.addForm.value.copmany = this.application.company;
+    this.addForm.value.jobTitle = this.application.job_title;
+    this.addForm.value.email = this.application.contact.email;
+    this.addForm.value.phone = this.application.contact.phone;
+    this.addForm.value.jobDescription = this.application.description;
+    this.addForm.value.jobLink = this.application.link;
+    this.addForm.value.status = this.application.status;
+    this.addForm.value.dateApplied = this.application.date_applied;
+
+    this.addForm.value.dateInterview = this.application.status_info.interview.date;
+    this.addForm.value.locationInterview = this.application.status_info.interview.location;
+    this.addForm.value.notesInterview = this.application.status_info.interview.notes;
+    this.addForm.value.amountOffer = this.application.status_info.offer.amount;
+    this.addForm.value.dateOffer = this.application.status_info.offer;
   }
 
   readonly(){
@@ -64,7 +104,8 @@ export class CompanyPage implements OnInit {
   }
 
   update(){
-    console.log("updated");
+  
+    console.log("this is the company value", this.addForm.value.company);
     var defaultDate = new Date('1995-12-17T03:24:00');
     const theApplication = {} as Application;
     theApplication.company = this.addForm.value.company;
@@ -76,19 +117,7 @@ export class CompanyPage implements OnInit {
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
     theApplication.date_applied = this.addForm.value.dateApplied;
-
-    theApplication.status_info = {interview: {date: defaultDate,location:"", notes:""}, offer:{amount:"",accept_by: defaultDate}};
-    theApplication.status_info.interview.date = this.addForm.value.dateInterviewed;
-    theApplication.status_info.interview.location = this.addForm.value.loationInterview;
-    theApplication.status_info.interview.notes = this.addForm.value.notesInterview;
-    theApplication.status_info.offer.amount = this.addForm.value.amountOffer;
-    theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
-
-
-    this.applicationService.addApplication(theApplication);
-
     theApplication.status_info = {interview:{date:defaultDate,location:"",notes:""},offer:{accept_by:defaultDate,amount:""}};
-
 
     if(this.addForm.value.dateInterview != undefined)
       theApplication.status_info.interview.date = this.addForm.value.dateInterview;
@@ -105,7 +134,7 @@ export class CompanyPage implements OnInit {
     if(this.addForm.value.dateOffer != undefined)
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
-    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
+    //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     this.applicationService.updateApplication(this.id,theApplication);
 
   }
