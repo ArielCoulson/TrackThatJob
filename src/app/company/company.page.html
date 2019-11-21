@@ -81,7 +81,7 @@
           <div  *ngIf="application.status === 'interview'">
               <ion-item>
                   <ion-label>Interview Date: </ion-label>
-                  <ion-input formControlName="dateInterview" type="text"  value = "{{application.status_info.interview.date}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input formControlName="dateInterview" type="date"  value = "{{application.status_info.interview.date}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
               <ion-item>
                   <ion-label>Location: </ion-label>
@@ -99,7 +99,7 @@
               </ion-item> 
               <ion-item>
                   <ion-label>Accept By: </ion-label>
-                  <ion-input formControlName="dateOffer" type="text"  value = "{{application.status_info.offer.accept_by}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input formControlName="dateOffer" type="date"  value = "{{application.status_info.offer.accept_by}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
           </div>
       </div>
