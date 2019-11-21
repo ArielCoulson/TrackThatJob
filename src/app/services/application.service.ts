@@ -100,7 +100,7 @@ export class ApplicationService {
   }
  
   updateApplication(id: string, application: Application): Promise<void> {
-    return this.applicationCollection.doc(application.id).update(application);
+    return this.applicationCollection.doc(id).update(application);
   }
  
   deleteApplication(id: string): Promise<void> {
