@@ -138,4 +138,16 @@ export class CompanyPage implements OnInit {
     this.applicationService.updateApplication(this.id, theApplication);
 
   }
+
+  isOffer(){
+    if(this.addForm.value.status == 'offer')
+      return true;
+    return false;
+  }
+  isInterview(){
+    if(this.addForm.value.status == 'interview')
+      return true;
+    return false;
+
+  }
 }
