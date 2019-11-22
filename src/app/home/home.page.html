@@ -1,36 +1,60 @@
 <ion-header>
-  <div class="toolbar">
-    <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button (click)="filterButton($event)">
-            <ion-icon name="funnel"></ion-icon>               
-          </ion-button>  
-        </ion-buttons>
+    <!--
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-select [interfaceOptions]="customPopoverOptions" interface="popover">
+                <ion-icon name="funnel"></ion-icon>
+                <ion-select-option>My Favs</ion-select-option>
+                <ion-select-option>My Favs</ion-select-option>
+            </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
         <ion-searchbar showcancelbutton="" placeholder="Search applications..." (ionInput)="filterSearch($event)"></ion-searchbar>
-        <ion-buttons slot="end">
-          <ion-button>
-              <ion-icon name="contact"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-  </div>
+      </ion-col>
+      <ion-col>
+          <ion-icon name="contact"></ion-icon>
+      </ion-col>
+    </ion-row>
+  -->
+    <ion-toolbar color="primary" class="toolbar">
+    <ion-searchbar showcancelbutton="" placeholder="Search your applications" (ionInput)="filterSearch($event)"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button>
+          <ion-icon name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-list-header>
-      My Applications
-    </ion-list-header >
+    <div slot="start">
+    <ion-item slot="end">
+      <ion-label>
+          My Applications
+      </ion-label>
+        <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" (ionChange)="filterSearch($event)">
+            <ion-select-option value="all" selected>All</ion-select-option>
+            <ion-select-option value="favorite">My Favorites</ion-select-option>
+            <ion-select-option value="applied">Applied</ion-select-option>
+            <ion-select-option value="inprogress">In Progress</ion-select-option>
+            <ion-select-option value="interview">Interview</ion-select-option>
+            <ion-select-option value="offer">Offer</ion-select-option>
+            <ion-select-option value="denied">Denied</ion-select-option>
+        </ion-select>
+        <ion-icon class="iconSize" color="primary" name="funnel"></ion-icon>
+    </ion-item>
+  </div>
     <ion-item-sliding *ngFor ="let application of applications">
-      <ion-item button (click)="openApp()">
-        <!--Status block will change colors. Lines under label are Company, position, app status-->
+      <ion-item button>
         <ion-icon [name]="statusIcon(application.status)" class="status-indicator"></ion-icon>
         <ion-label class='app-label' routerLink = '/company/{{application.id}}'>
           <h2>{{ application.company }}</h2>
           <h3>{{ application.job_title }}</h3>
           <h4>{{ application.status }}</h4>  
         </ion-label>
-        <!--We need to create a component to animate this-->
         <ion-icon class="fav-button" [style.color]="application.favorite ? 'red' : ''" [name]="application.favorite ? 'heart' : 'heart-empty'"
             (click)="favoriteApp(application.favorite, application.id)"></ion-icon>
       </ion-item>

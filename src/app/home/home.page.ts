@@ -7,6 +7,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { ApplicationService, Application } from 'src/app/services/application.service'
 import { FilterComponent } from 'src/app/filter/filter.component';
 import { PopoverController } from '@ionic/angular';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-home',
@@ -20,32 +21,43 @@ export class HomePage implements OnInit {
   private loadedApps: Application[];
   private applicationCollection: AngularFirestoreCollection<Application>;
   private user: Observable<firebase.User>;
+  private searchTerm: string;
 
   constructor(private applicationService: ApplicationService, private afs: AngularFirestore, 
-    public loadingCtrl: LoadingController, public popoverCtrl: PopoverController) {
+    public loadingCtrl: LoadingController) {
     this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
+    console.log("Constructor for Home Page");
     }
 
   ngOnInit() {
+    console.log("ngoninit");
+    this.getAllApps();
+  }
+
+  getAllApps(){
     this.applicationService.getApplications().subscribe(results => {
       this.applications = results;
       this.loadedApps = results;
     });
+
   }
 
   favoriteApp(fav: boolean, id: string){
     event.stopPropagation(); 
-    console.log("Application ID: " + id);
-    
+    this.initializeItems();
+
     var appRef = this.applicationCollection.doc(id);
 
     if(fav) {
-      appRef.update({favorite: false});
+      appRef.set({favorite: false});
       console.log("App " + id + " has been unfavorited!")
     } else {
-      appRef.update({favorite: true});
+      appRef.set({favorite: true});
       console.log("App " + id + " has been favorited!")
     }
+
+
+
   }
 
   statusIcon(stat: string) {
@@ -67,6 +79,8 @@ export class HomePage implements OnInit {
       case 'denied':
         icon = 'close';
         break;
+      default:
+        icon = 'help';
     }
 
     return icon;
@@ -79,12 +93,26 @@ export class HomePage implements OnInit {
   filterSearch(evt) {
     this.initializeItems();
   
+    const element = evt.target.tagName;
     const searchTerm = evt.srcElement.value;
+    console.log("Tag: " + element + " | Search: " + searchTerm);
   
     if (!searchTerm) {
       return;
-    }
-  
+    } else if(element === "ION-SEARCHBAR"){
+      this.searchBarFilter(searchTerm);
+    } else if(element === 'ION-SELECT'){
+      if (searchTerm === 'all'){
+        this.getAllApps();
+      } else if (searchTerm !== "favorite"){
+        this.statusFilter(searchTerm);
+      } else {
+        this.favoriteFilter();
+      }
+    }  
+  }
+
+  searchBarFilter(searchTerm: string){
     this.applications = this.applications.filter(currentApp => {
       if (currentApp.company && searchTerm) {
         if (currentApp.company.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
@@ -92,6 +120,24 @@ export class HomePage implements OnInit {
         }
         return false;
       }
+    });
+  }
+
+  statusFilter(searchTerm: string){
+    this.applications = this.applications.filter(currentApp => {
+      if (currentApp.status && searchTerm) {
+        if (currentApp.status.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+
+  favoriteFilter(){
+    console.log("favz");
+    this.applications = this.applications.filter(currentApp => {
+     return currentApp.favorite !== false;
     });
   }
 
@@ -103,15 +149,18 @@ export class HomePage implements OnInit {
     console.log("You clicked me!")
   }
 
+  /*
   async filterButton(ev: any) {
+    console.log("Selected value is " + this.selected)
     const popover = await this.popoverCtrl.create({
         component: FilterComponent,
         event: ev,
         animated: true,
-        showBackdrop: true
+        showBackdrop: true,
+        componentProps: {selection: this.selected}
     });
     return await popover.present();
-  }
+  }*/
 }
 
 

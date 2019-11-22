@@ -99,8 +99,8 @@ export class ApplicationService {
     return this.applicationCollection.add(application);
   }
  
-  updateApplication(id: string, application: Application): Promise<void> {
-    return this.applicationCollection.doc(application.id).update(application);
+  updateApplication(application: Application): Promise<void> {
+    return this.applicationCollection.doc(application.id).set(application);
   }
  
   deleteApplication(id: string): Promise<void> {
