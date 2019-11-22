@@ -1,0 +1,25 @@
+<ion-content padding>
+  <div align="center">
+      <h1><font size="10" color="#404040">Track That Job</font></h1>
+      <br/><br/>
+      <img src="assets/trackthatjob.png"/>
+  </div>
+
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+    <ion-item>
+        <ion-input type="email" placeholder="Email" name="email" ngModel #email="ngModel"></ion-input>
+    </ion-item>
+<br/>
+    <ion-item>
+        <ion-input type="password" placeholder="Password" name="password" ngModel #password="ngModel"></ion-input>
+    </ion-item>
+<br/>
+    <ion-button type="submit" expand="full" routerLink='/home'>Login</ion-button>
+  </form>
+
+  <br/>
+    <a href="signup">Don't have an account? Sign up here.</a>
+    <br/><br/>
+    <u><a id="pw" (click)='forgotPasswordMessage()'>Forgot your password? Click here.</a></u>
+
+</ion-content>

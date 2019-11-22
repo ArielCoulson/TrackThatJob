@@ -1,0 +1,40 @@
+<ion-content padding class="form">
+  <div align="center">
+      <h1><font size="10" color="#404040">Track That Job</font></h1>
+      <br/><br/>
+      <img src="assets/trackthatjob.png"/>
+  </div>
+
+  <form #signupForm="ngForm" (ngSubmit)="signup(signupForm.value)">
+      <ion-item>
+        <ion-label color="primary" position="stacked">Email:</ion-label>  
+        <ion-input inputmode="email" type="email" required placeholder="example@email.com" name="email" ngModel #email="ngModel"></ion-input>
+      </ion-item>  
+        <!--<ion-input type="text" required placeholder="Last Name" name="lastname" ngModel #lastname="ngModel"></ion-input>
+
+        <ion-input type="text" required placeholder="Birthday" name="birthday" ngModel #birthday="ngModel"></ion-input>
+
+        <label>*Birthday format: MM-DD-YYYY</label>
+
+        <ion-input id="address" type="text" required data-balloon-length="fit" data-balloon="Please provide the numeric portion of your street address. For example, if you live at
+        1001A 1st Street N Apartment #4.
+        Then you would enter 1001" data-balloon-pos="up"placeholder="House Number" name="address" ngModel #address="ngModel"></ion-input>-->
+         
+      <ion-item>
+      <ion-label color="primary" position="stacked">Password:</ion-label>   
+        <ion-input type="Password" placeholder="Password" required minlength="6" name="password" ngModel #password="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" position="stacked">Confirm Password:</ion-label>
+        <ion-input type="Password" required placeholder="Confirm Password" name="password2" ngModel #password2="ngModel"></ion-input>
+      </ion-item>  
+<br/>
+<div align="center">
+    <ion-button type="submit" expand="full" routerLink='/home'>Sign Up</ion-button><br>
+</div>
+  <br/>
+    <a href="login">Already have an account? Login here.</a>
+  </form>
+
+</ion-content>

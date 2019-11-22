@@ -12,11 +12,12 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireModule, FirebaseNameOrConfigToken } from '@angular/fire';
 import { environment } from 'src/environments/environment.prod';
 import { FilterComponent } from './filter/filter.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, FilterComponent],
   entryComponents: [FilterComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFirestoreModule, AngularFireModule.initializeApp(environment.firebase)],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFirestoreModule, AngularFireModule.initializeApp(environment.firebase), HttpClientModule],
   providers: [
     AngularFirestore,
     StatusBar,
