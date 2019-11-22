@@ -35,6 +35,7 @@ export class AddPage implements OnInit {
         jobDescription: new FormControl(''),
         jobLink: new FormControl(''),
         phone: new FormControl(''),
+        favorite: false,
         status: new FormControl(''),
         dateApplied: new FormControl(''),
         dateInterview: new FormControl(''),
@@ -79,19 +80,7 @@ export class AddPage implements OnInit {
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
     theApplication.date_applied = this.addForm.value.dateApplied;
-
-    theApplication.status_info = {interview: {date: defaultDate,location:"", notes:""}, offer:{amount:"",accept_by: defaultDate}};
-    theApplication.status_info.interview.date = this.addForm.value.dateInterviewed;
-    theApplication.status_info.interview.location = this.addForm.value.loationInterview;
-    theApplication.status_info.interview.notes = this.addForm.value.notesInterview;
-    theApplication.status_info.offer.amount = this.addForm.value.amountOffer;
-    theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
-
-
-    this.applicationService.addApplication(theApplication);
-
     theApplication.status_info = {interview:{date:defaultDate,location:"",notes:""},offer:{accept_by:defaultDate,amount:""}};
-
 
     if(this.addForm.value.dateInterview != undefined)
       theApplication.status_info.interview.date = this.addForm.value.dateInterview;
