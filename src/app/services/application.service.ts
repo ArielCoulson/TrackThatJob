@@ -98,7 +98,10 @@ export class ApplicationService {
   addApplication(application: Application): Promise<DocumentReference> {
     return this.applicationCollection.add(application);
   }
+<<<<<<< HEAD
  
+=======
+>>>>>>> d8326b6c9fb8c0b54036d924a392b251dde17cee
 
   updateApplication(id: string, application: Application): Promise<void> {
     return this.applicationCollection.doc(id).update(application);

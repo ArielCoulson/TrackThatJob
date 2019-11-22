@@ -65,20 +65,20 @@
         <ion-item>
             <ion-label>Status: </ion-label>
             
-            <ion-select formControlName="status" [hidden]="readonly()" placeholder="{{application.status}}">
-                <ion-select-option value="{{application.status" selected disabled hidden></ion-select-option>
+            <ion-select formControlName="status" [hidden]="readonly()">
+                <!-- //<ion-select-option value="{{application.status" selected disabled hidden></ion-select-option> -->
                 <ion-select-option value="applied">Applied</ion-select-option>
                 <ion-select-option value="inprogress">In Progress</ion-select-option>
                 <ion-select-option value="interview">Interview</ion-select-option>
                 <ion-select-option value="offer">Offer</ion-select-option>
-                <ion-select-option value="denied">Applied</ion-select-option>
+                <ion-select-option value="denied">Denied</ion-select-option>
             </ion-select>
         
             <ion-input [hidden]="!readonly()" formControlName="status" type="text"  value = "{{application.status}}" [readonly]="readonly()"> </ion-input>
         </ion-item>
       </ion-list>
       <div *ngIf = "application">
-          <div  *ngIf="application.status === 'interview'">
+          <div  *ngIf="isInterview()">
               <ion-item>
                   <ion-label>Interview Date: </ion-label>
                   <ion-input formControlName="dateInterview" type="date"  value = "{{application.status_info.interview.date}}" [readonly]="readonly()"> </ion-input>
@@ -92,7 +92,7 @@
                   <ion-input formControlName="notesInterview" type="text"  value = "{{application.status_info.interview.notes}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
           </div>
-          <div  *ngIf="application.status === 'offer'">
+          <div  *ngIf="isOffer()">
               <ion-item>
                   <ion-label>Amount Annually: </ion-label>
                   <ion-input formControlName="amountOffer" type="text"  value = "{{application.status_info.offer.amount}}" [readonly]="readonly()"> </ion-input>

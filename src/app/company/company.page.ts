@@ -136,6 +136,21 @@ export class CompanyPage implements OnInit {
 
     //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     this.applicationService.updateApplication(this.id, theApplication);
+<<<<<<< HEAD
+=======
+
+  }
+
+  isOffer(){
+    if(this.addForm.value.status == 'offer')
+      return true;
+    return false;
+  }
+  isInterview(){
+    if(this.addForm.value.status == 'interview')
+      return true;
+    return false;
+>>>>>>> d8326b6c9fb8c0b54036d924a392b251dde17cee
 
   }
 }
