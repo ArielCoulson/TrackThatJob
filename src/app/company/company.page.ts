@@ -135,7 +135,7 @@ export class CompanyPage implements OnInit {
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
     //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
-    this.applicationService.updateApplication(theApplication);
+    this.applicationService.updateApplication(this.id, theApplication);
 
   }
 }
