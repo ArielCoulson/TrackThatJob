@@ -17,13 +17,15 @@ import { stringify } from 'querystring';
 
 export class HomePage implements OnInit {
 
-  private applications: Application[];
-  private loadedApps: Application[];
+  private applications: any[];
+  private loadedApps: any[];
   private applicationCollection: AngularFirestoreCollection<Application>;
+  private application: Application;
+  element: string;
+  searchTerm: string;
 
   constructor(private applicationService: ApplicationService, private afs: AngularFirestore, 
     public loadingCtrl: LoadingController) {
-    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     }
 
   ngOnInit() {
@@ -40,20 +42,25 @@ export class HomePage implements OnInit {
   }
 
   favoriteApp(fav: boolean, id: string){
-    console.log("Before fav: " + this.applications.length);
     event.stopPropagation(); 
 
-    var appRef = this.applicationCollection.doc(id);
+    this.applicationService.getApplication(id).subscribe(app => {
+      this.application = app;
 
-    if(fav) {
-      appRef.update({favorite: false});
-      console.log("App " + id + " has been unfavorited!")
-    } else {
-      appRef.update({favorite: true});
-      console.log("App " + id + " has been favorited!")
-    }
+      if(this.application.favorite){
+        this.application.favorite = false;
+      } else {
+        this.application.favorite = true;
+      }
+      
+      this.updateApp(id, this.application);
+    });
+  }
 
-    console.log("After fav: " + this.applications.length);
+  async updateApp(id: string, app: Application){
+    await this.applicationService.updateApplication(id, app);
+
+    this.filterSearchHelper(this.element, this.searchTerm);
   }
 
   statusIcon(stat: string) {
@@ -87,21 +94,25 @@ export class HomePage implements OnInit {
   }
 
   filterSearch(evt) {
+    this.element = evt.target.tagName;
+    this.searchTerm = evt.srcElement.value;
+    console.log("Tag: " + this.element + " | Search: " + this.searchTerm);
+  
+    this.filterSearchHelper(this.element, this.searchTerm);
+  }
+
+  filterSearchHelper(el: string, term: string){
     this.initializeItems();
-  
-    const element = evt.target.tagName;
-    const searchTerm = evt.srcElement.value;
-    console.log("Tag: " + element + " | Search: " + searchTerm);
-  
-    if (!searchTerm) {
+
+    if (!term) {
       return;
-    } else if(element === "ION-SEARCHBAR"){
-      this.searchBarFilter(searchTerm);
-    } else if(element === 'ION-SELECT'){
-      if (searchTerm === 'all'){
+    } else if(el === "ION-SEARCHBAR"){
+      this.searchBarFilter(term);
+    } else if(el === 'ION-SELECT'){
+      if (term === 'all'){
         this.getAllApps();
-      } else if (searchTerm !== "favorite"){
-        this.statusFilter(searchTerm);
+      } else if (term !== "favorite"){
+        this.statusFilter(term);
       } else {
         this.favoriteFilter();
       }
@@ -139,6 +150,8 @@ export class HomePage implements OnInit {
 
   async removeApp(app: Application) {
     await this.applicationService.deleteApplication(app.id);
+
+    this.filterSearchHelper(this.element, this.searchTerm);
   }
 
   openApp(){
