@@ -20,13 +20,10 @@ export class HomePage implements OnInit {
   private applications: Application[];
   private loadedApps: Application[];
   private applicationCollection: AngularFirestoreCollection<Application>;
-  private user: Observable<firebase.User>;
-  private searchTerm: string;
 
   constructor(private applicationService: ApplicationService, private afs: AngularFirestore, 
     public loadingCtrl: LoadingController) {
     this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
-    console.log("Constructor for Home Page");
     }
 
   ngOnInit() {
@@ -43,21 +40,20 @@ export class HomePage implements OnInit {
   }
 
   favoriteApp(fav: boolean, id: string){
+    console.log("Before fav: " + this.applications.length);
     event.stopPropagation(); 
-    this.initializeItems();
 
     var appRef = this.applicationCollection.doc(id);
 
     if(fav) {
-      appRef.set({favorite: false});
+      appRef.update({favorite: false});
       console.log("App " + id + " has been unfavorited!")
     } else {
-      appRef.set({favorite: true});
+      appRef.update({favorite: true});
       console.log("App " + id + " has been favorited!")
     }
 
-
-
+    console.log("After fav: " + this.applications.length);
   }
 
   statusIcon(stat: string) {

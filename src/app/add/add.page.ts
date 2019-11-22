@@ -35,6 +35,7 @@ export class AddPage implements OnInit {
         jobDescription: new FormControl(''),
         jobLink: new FormControl(''),
         phone: new FormControl(''),
+        favorite: false,
         status: new FormControl(''),
         dateApplied: new FormControl(''),
         dateInterview: new FormControl(''),
