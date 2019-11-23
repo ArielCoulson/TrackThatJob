@@ -5,6 +5,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
 import { ApplicationService, Application } from 'src/app/services/application.service';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-add',
@@ -25,7 +26,7 @@ export class AddPage implements OnInit {
     ],
 
   }
-  constructor(public loadingCtrl: LoadingController, public formBuilder: FormBuilder,public applicationService: ApplicationService, private afs: AngularFirestore) {
+  constructor(private router: Router, public loadingCtrl: LoadingController, public formBuilder: FormBuilder,public applicationService: ApplicationService, private afs: AngularFirestore) {
       this.addForm = this.formBuilder.group({
         email: new FormControl(''),
         company: new FormControl('',Validators.compose([
@@ -80,6 +81,7 @@ export class AddPage implements OnInit {
     theApplication.description = this.addForm.value.jobDescription;
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
+    //console.log(this.addForm.status);
     theApplication.date_applied = this.addForm.value.dateApplied;
     theApplication.status_info = {interview:{date:defaultDate,location:"",notes:""},offer:{accept_by:defaultDate,amount:""}};
 
@@ -102,5 +104,6 @@ export class AddPage implements OnInit {
 
     this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     this.applicationCollection.add(theApplication);
+    this.router.navigate(['/home']);
   }
 }
