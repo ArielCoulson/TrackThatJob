@@ -69,7 +69,8 @@ export class AddPage implements OnInit {
     //const loading = await this.loadingCtrl.create();
 
     //sorry this is ugly Ill clean it up
-    var defaultDate = new Date('1995-12-17T03:24:00');
+    var defaultDate = new Date();
+    console.log(defaultDate);
     const theApplication = {} as Application;
     theApplication.company = this.addForm.value.company;
     theApplication.job_title = this.addForm.value.jobTitle;
@@ -96,6 +97,8 @@ export class AddPage implements OnInit {
     
     if(this.addForm.value.dateOffer != undefined)
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
+    theApplication.favorite = false;
+    theApplication.created_at = defaultDate;
 
     this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
     this.applicationCollection.add(theApplication);

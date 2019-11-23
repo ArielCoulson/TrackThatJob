@@ -11,6 +11,7 @@ export interface Application {
     email: string,
     phone: string
   },
+  created_at: Date,
   date_applied: Date,
   description: string,
   favorite: boolean,
