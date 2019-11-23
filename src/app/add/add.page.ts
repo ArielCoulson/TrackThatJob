@@ -81,7 +81,6 @@ export class AddPage implements OnInit {
     theApplication.description = this.addForm.value.jobDescription;
     theApplication.link = this.addForm.value.jobLink;
     theApplication.status = this.addForm.value.status;
-    //console.log(this.addForm.status);
     theApplication.date_applied = this.addForm.value.dateApplied;
     theApplication.status_info = {interview:{date:defaultDate,location:"",notes:""},offer:{accept_by:defaultDate,amount:""}};
 
