@@ -27,7 +27,8 @@ export interface Application {
       accept_by: Date,
       amount: string
     }
-  }
+  },
+  created_at: Date;
 }
 
 @Injectable({
@@ -98,10 +99,6 @@ export class ApplicationService {
   addApplication(application: Application): Promise<DocumentReference> {
     return this.applicationCollection.add(application);
   }
-<<<<<<< HEAD
- 
-=======
->>>>>>> 16d7513324bae9aefdcbe94f41528e99cc17b8e9
 
   async updateApplication(id: string, application: Application): Promise<void> {
     await this.applicationCollection.doc(id).update(application);

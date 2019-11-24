@@ -103,10 +103,10 @@ export class CompanyPage implements OnInit {
     window.location.reload();
   }
 
-  update(){
+  async update(){
   
     console.log("this is the company value", this.addForm.value.company);
-    var defaultDate = new Date('1995-12-17T03:24:00');
+    var defaultDate = new Date();
     const theApplication = {} as Application;
     theApplication.company = this.addForm.value.company;
     theApplication.job_title = this.addForm.value.jobTitle;
@@ -135,9 +135,15 @@ export class CompanyPage implements OnInit {
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
     //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
+<<<<<<< HEAD
     this.applicationService.updateApplication(this.id, theApplication);
 <<<<<<< HEAD
 =======
+=======
+    await this.applicationService.updateApplication(this.id, theApplication);
+    window.location.reload();
+
+>>>>>>> fee6799b7cd0cfd6671e05faf2f6428886027e7c
 
   }
 
