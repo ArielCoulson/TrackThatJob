@@ -28,12 +28,17 @@ export class AddPage implements OnInit {
     ],
     'status': [
       {type: 'required', message: 'Application status is required.'}
+    ],
+    'email': [
+      { type: 'pattern', message: 'Please enter a valid email.' }
     ]
 
   }
   constructor(private router: Router, public loadingCtrl: LoadingController, public formBuilder: FormBuilder,public applicationService: ApplicationService, private afs: AngularFirestore) {
       this.addForm = this.formBuilder.group({
-        email: new FormControl(''),
+        email: new FormControl('', Validators.compose([
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ])),
         company: new FormControl('',Validators.compose([
           Validators.required
         ])),
@@ -45,7 +50,7 @@ export class AddPage implements OnInit {
         phone: new FormControl(''),
         favorite: false,
         status: new FormControl('',Validators.compose([
-          Validators.required
+          Validators.required,
         ])),
         dateApplied: new FormControl(''),
         dateInterview: new FormControl(''),
