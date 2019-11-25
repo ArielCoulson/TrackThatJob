@@ -185,6 +185,15 @@ export class CompanyPage implements OnInit {
     if(this.addForm.value.status == 'interview')
       return true;
     return false;
-
+  }
+  goHome(){
+    this.read = true;
+    this.textStyle ="readMode"
+    this.router.navigate(['/home']);
+  }
+  goProfile(){
+    this.read = true;
+    this.textStyle ="readMode"
+    this.router.navigate(['/profile']);
   }
 }

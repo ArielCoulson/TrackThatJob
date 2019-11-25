@@ -2,7 +2,7 @@
   <div class="toolbar">
     <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button routerLink='/home'>
+          <ion-button (click)="goHome()">
               <ion-icon name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -10,9 +10,13 @@
             <ion-button (click)="editApp()" [hidden]="!readonly()">
                     <ion-icon name="create"></ion-icon>
             </ion-button>
-            <ion-button routerLink='/profile'>
+            <ion-button (click)="update()" [hidden]="readonly()">
+                    <ion-icon name="save"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)='goProfile()'>
               <ion-icon name="contact"></ion-icon>
-          </ion-button>
+            </ion-button>
         </ion-buttons>
         <ion-title [hidden]="!readonly()">Application Info</ion-title>
         <ion-title [hidden]="readonly()">Update Application Info</ion-title>
