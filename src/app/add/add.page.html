@@ -25,12 +25,12 @@
       </ion-list-header>
 
       <ion-item>
-          <ion-label>Company: </ion-label>
+          <ion-label>Company*: </ion-label>
           <ion-input formControlName="company" type="text" placeholder="Company Name"> </ion-input>
       </ion-item>
 
       <ion-item>
-          <ion-label>Job Title: </ion-label>
+          <ion-label>Job Title*: </ion-label>
           <ion-input formControlName="jobTitle" type="text" placeholder="Job Title"> </ion-input>
       </ion-item>
 
@@ -77,7 +77,7 @@
       </ion-item>
       
       <ion-item>
-        <ion-label>Status:</ion-label>
+        <ion-label>Status*:</ion-label>
         <ion-select formControlName="status">
             <ion-select-option value="applied">Applied</ion-select-option>
             <ion-select-option value="inprogress">In Progress</ion-select-option>
@@ -112,11 +112,13 @@
               <ion-input formControlName="dateOffer" type="date" placeholder="mm/dd/yyyy"> </ion-input>
           </ion-item> 
       </div>
-
- 
     </ion-list>
+    <ion-col>
+      <ion-note> * indicates field is required</ion-note>
+    </ion-col>
     <ion-button (click) = "add()" [disabled]="!addForm.valid" shape="round" size="default"  expand="block">Add</ion-button>
   </form>
+
 
 
     

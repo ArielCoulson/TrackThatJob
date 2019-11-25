@@ -32,12 +32,16 @@ export class AddPage implements OnInit {
         company: new FormControl('',Validators.compose([
           Validators.required
         ])),
-        jobTitle: new FormControl(''),
+        jobTitle: new FormControl('',Validators.compose([
+          Validators.required
+        ])),
         jobDescription: new FormControl(''),
         jobLink: new FormControl(''),
         phone: new FormControl(''),
         favorite: false,
-        status: new FormControl(''),
+        status: new FormControl('',Validators.compose([
+          Validators.required
+        ])),
         dateApplied: new FormControl(''),
         dateInterview: new FormControl(''),
         locationInterview: new FormControl(''),
@@ -103,6 +107,8 @@ export class AddPage implements OnInit {
 
     this.applicationCollection = this.applicationService.getApplicationCollection();
     this.applicationCollection.add(theApplication);
+    //this.applicationCollection = this.afs.collection('users').doc('jtHyYmX45rSADWxANIrplxk1kg72').collection('applications');
+    //this.applicationService.add(theApplication);
     this.router.navigate(['/home']);
   }
 }

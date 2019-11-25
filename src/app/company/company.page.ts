@@ -37,11 +37,15 @@ export class CompanyPage implements OnInit {
       company: new FormControl('',Validators.compose([
         Validators.required
       ])),
-      jobTitle: new FormControl(''),
+      jobTitle: new FormControl('',Validators.compose([
+        Validators.required
+      ])),
       jobDescription: new FormControl(''),
       jobLink: new FormControl(''),
       phone: new FormControl(''),
-      status: new FormControl(''),
+      status: new FormControl('',Validators.compose([
+        Validators.required
+      ])),
       dateApplied: new FormControl(''),
       dateInterview: new FormControl(''),
       locationInterview: new FormControl(''),
@@ -107,7 +111,7 @@ export class CompanyPage implements OnInit {
 
   async update(){
   
-    console.log("this is the company value", this.addForm.value.company);
+    //console.log("this is the company value", this.addForm.value.company);
     var defaultDate = new Date();
     const theApplication = {} as Application;
     theApplication.company = this.addForm.value.company;
