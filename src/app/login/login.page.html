@@ -1,25 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
 <ion-content padding>
-  <div align="center">
-      <h1><font size="10" color="#404040">Track That Job</font></h1>
-      <br/><br/>
-      <img src="assets/trackthatjob.png"/>
-  </div>
-
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)">
+  <form class="form" [formGroup]="validations_form"  (ngSubmit)="loginUser(validations_form.value)">
+ 
     <ion-item>
-        <ion-input type="email" placeholder="Email" name="email" ngModel #email="ngModel"></ion-input>
+      <ion-label  position="floating" color="primary">Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
     </ion-item>
-<br/>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+ 
     <ion-item>
-        <ion-input type="password" placeholder="Password" name="password" ngModel #password="ngModel"></ion-input>
+      <ion-label  position="floating" color="primary">Password</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
     </ion-item>
-<br/>
-    <ion-button type="submit" expand="full" routerLink='/home'>Login</ion-button>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message" *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+ 
+    <ion-button  class="submit-btn" type="submit"  [disabled]="!validations_form.valid">Log In</ion-button>
+ 
+    <label class="error-message">{{errorMessage}}</label>
   </form>
-
-  <br/>
-    <a href="signup">Don't have an account? Sign up here.</a>
-    <br/><br/>
-    <u><a id="pw" (click)='forgotPasswordMessage()'>Forgot your password? Click here.</a></u>
-
+  <p class="go-to-register">
+    No account yet? <a (click)="goToRegisterPage()">Create an account.</a>
+  </p>
 </ion-content>
