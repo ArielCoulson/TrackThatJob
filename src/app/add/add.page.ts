@@ -31,6 +31,9 @@ export class AddPage implements OnInit {
     ],
     'email': [
       { type: 'pattern', message: 'Please enter a valid email.' }
+    ],
+    'phone': [
+      { type: 'pattern', message: 'Please enter a valid phone number, in the specified format.' }
     ]
 
   }
@@ -47,7 +50,9 @@ export class AddPage implements OnInit {
         ])),
         jobDescription: new FormControl(''),
         jobLink: new FormControl(''),
-        phone: new FormControl(''),
+        phone: new FormControl('', Validators.compose([
+          Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+        ])),
         favorite: false,
         status: new FormControl('',Validators.compose([
           Validators.required,
