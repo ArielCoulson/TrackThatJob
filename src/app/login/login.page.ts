@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
  
     private navCtrl: NavController,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
  
   ) { }
  
@@ -49,17 +49,17 @@ export class LoginPage implements OnInit {
  
  
   async loginUser(value){
+
     await this.authService.loginUser(value)
     .then(res => {
       console.log(res);
       this.errorMessage = "";
-      this.navCtrl.navigateForward('/home');
     }, err => {
       this.errorMessage = err.message;
     })
     const currentUser = this.authService.userDetails();
     localStorage.setItem('uid',currentUser.uid);
-    console.log(localStorage.getItem('uid'));
+    this.navCtrl.navigateForward('/home');
   }
  
   goToRegisterPage(){
