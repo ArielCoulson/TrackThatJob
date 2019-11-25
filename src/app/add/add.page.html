@@ -63,8 +63,16 @@
       </div>
       <ion-item>
           <ion-label>Phone: </ion-label>
-          <ion-input formControlName="phone" type="text" placeholder="(xxx) xxx-xxxx"> </ion-input>
+          <ion-input formControlName="phone" type="text" placeholder="##########"> </ion-input>
       </ion-item>
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.phone">
+            <div class="error-message" *ngIf="addForm.get('phone').hasError(error.type) && (addForm.get('phone').dirty || addForm.get('phone').touched)">
+              {{ error.message}}
+            </div>
+    
+          </ng-container>
+        </div>
     </ion-list>
 
     <ion-list>
