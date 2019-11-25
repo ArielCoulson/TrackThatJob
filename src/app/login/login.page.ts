@@ -48,8 +48,8 @@ export class LoginPage implements OnInit {
   };
  
  
-  loginUser(value){
-    this.authService.loginUser(value)
+  async loginUser(value){
+    await this.authService.loginUser(value)
     .then(res => {
       console.log(res);
       this.errorMessage = "";
@@ -57,6 +57,9 @@ export class LoginPage implements OnInit {
     }, err => {
       this.errorMessage = err.message;
     })
+    const currentUser = this.authService.userDetails();
+    localStorage.setItem('uid',currentUser.uid);
+    console.log(localStorage.getItem('uid'));
   }
  
   goToRegisterPage(){
