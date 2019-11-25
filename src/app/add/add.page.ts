@@ -20,10 +20,15 @@ export class AddPage implements OnInit {
   private user: Observable<firebase.User>;
 
   error_messages = {
-    'email': [
-      {type: 'required', message: 'Email is required.'},
-      {type: 'minLength', message: 'min length is 6'}
+    'company': [
+      {type: 'required', message: 'Company information is required'}
     ],
+    'jobTitle': [
+      {type: 'required', message: 'Job Title is required.'}
+    ],
+    'status': [
+      {type: 'required', message: 'Application status is required.'}
+    ]
 
   }
   constructor(private router: Router, public loadingCtrl: LoadingController, public formBuilder: FormBuilder,public applicationService: ApplicationService, private afs: AngularFirestore) {
