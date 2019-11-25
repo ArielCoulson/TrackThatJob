@@ -8,6 +8,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
 import { setupPlatforms } from '@ionic/core/dist/types/utils/platform';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-company',
@@ -24,7 +25,7 @@ export class CompanyPage implements OnInit {
   private user: Observable<firebase.User>;
   public read: boolean;
 
-  constructor(private applicationService: ApplicationService,public formBuilder: FormBuilder, route: ActivatedRoute, private afs: AngularFirestore) { 
+  constructor(private router: Router,private applicationService: ApplicationService,public formBuilder: FormBuilder, route: ActivatedRoute, private afs: AngularFirestore) { 
     this.id = route.snapshot.params.id;
     this.applicationService.getApplication(this.id).subscribe(result => {
         this.application = result;
@@ -100,7 +101,8 @@ export class CompanyPage implements OnInit {
     return this.read;
   }
   cancel(){
-    window.location.reload();
+    this.router.navigate(['/company/'+this.id]);
+    this.read = true;
   }
 
   async update(){
@@ -137,7 +139,9 @@ export class CompanyPage implements OnInit {
     //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications')
 
     await this.applicationService.updateApplication(this.id, theApplication);
-    window.location.reload();
+    //window.location.reload();
+    this.router.navigate(['/company/'+this.id]);
+    this.read = true;
   }
 
   isOffer(){
