@@ -5,7 +5,8 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
 import { ApplicationService, Application } from 'src/app/services/application.service';
-import {Router} from "@angular/router"
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-add',
@@ -32,12 +33,16 @@ export class AddPage implements OnInit {
         company: new FormControl('',Validators.compose([
           Validators.required
         ])),
-        jobTitle: new FormControl(''),
+        jobTitle: new FormControl('',Validators.compose([
+          Validators.required
+        ])),
         jobDescription: new FormControl(''),
         jobLink: new FormControl(''),
         phone: new FormControl(''),
         favorite: false,
-        status: new FormControl(''),
+        status: new FormControl('',Validators.compose([
+          Validators.required
+        ])),
         dateApplied: new FormControl(''),
         dateInterview: new FormControl(''),
         locationInterview: new FormControl(''),
@@ -101,8 +106,8 @@ export class AddPage implements OnInit {
     theApplication.favorite = false;
     theApplication.created_at = defaultDate;
 
-    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
-    this.applicationCollection.add(theApplication);
+    //this.applicationCollection = this.afs.collection('users').doc('jtHyYmX45rSADWxANIrplxk1kg72').collection('applications');
+    //this.applicationService.add(theApplication);
     this.router.navigate(['/home']);
   }
 }
