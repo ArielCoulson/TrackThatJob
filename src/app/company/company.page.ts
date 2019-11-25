@@ -135,15 +135,12 @@ export class CompanyPage implements OnInit {
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
     //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
-<<<<<<< HEAD
+
     this.applicationService.updateApplication(this.id, theApplication);
-<<<<<<< HEAD
-=======
-=======
+
     await this.applicationService.updateApplication(this.id, theApplication);
     window.location.reload();
 
->>>>>>> fee6799b7cd0cfd6671e05faf2f6428886027e7c
 
   }
 
@@ -156,7 +153,6 @@ export class CompanyPage implements OnInit {
     if(this.addForm.value.status == 'interview')
       return true;
     return false;
->>>>>>> 16d7513324bae9aefdcbe94f41528e99cc17b8e9
 
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as firebase from 'firebase';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 export interface Application {
@@ -69,7 +70,9 @@ export class ApplicationService {
    */
 
   constructor(private afs: AngularFirestore) {
-    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection<Application>('applications');
+    let userID = firebase.auth().currentUser.uid;
+
+    this.applicationCollection = this.afs.collection('users').doc(userID).collection<Application>('applications');
     this.applications = this.applicationCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
