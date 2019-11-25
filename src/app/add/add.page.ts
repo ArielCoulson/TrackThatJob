@@ -5,7 +5,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { IfStmt } from '@angular/compiler';
 import { ApplicationService, Application } from 'src/app/services/application.service';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-add',
@@ -16,7 +16,7 @@ export class AddPage implements OnInit {
 
   addForm: FormGroup;
   private application: Application;
-  private applicationCollection: AngularFirestoreCollection<Application>;
+  private applicationCollection: AngularFirestoreCollection<Application>; 
   private user: Observable<firebase.User>;
 
   error_messages = {
@@ -101,7 +101,7 @@ export class AddPage implements OnInit {
     theApplication.favorite = false;
     theApplication.created_at = defaultDate;
 
-    this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
+    this.applicationCollection = this.applicationService.getApplicationCollection();
     this.applicationCollection.add(theApplication);
     this.router.navigate(['/home']);
   }

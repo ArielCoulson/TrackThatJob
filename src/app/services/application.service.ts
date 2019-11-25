@@ -3,7 +3,9 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument,
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
+import { AuthenticateService } from "../../app/services/authentication.service"
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 
 export interface Application {
   id?: string,
@@ -40,6 +42,7 @@ export class ApplicationService {
   private applications: Observable<Application[]>;
   private applicationCollection: AngularFirestoreCollection<Application>;
   application: Application;
+  private userID: any;
 
   /**
    * 
@@ -69,10 +72,21 @@ export class ApplicationService {
       }
    */
 
-  constructor(private afs: AngularFirestore) {
-    let userID = firebase.auth().currentUser.uid;
+  constructor(private afs: AngularFirestore, private authService: AuthenticateService, private afAuth: AngularFireAuth) {
+    let currentUser = this.authService.userDetails();
 
-    this.applicationCollection = this.afs.collection('users').doc(userID).collection<Application>('applications');
+      if(this.afAuth.auth.currentUser) {
+        let user = this.afAuth.auth.currentUser.uid;
+      }
+
+      if (currentUser) {
+        this.userID = currentUser.uid;
+        this.refreshApplicationCollection(currentUser.uid);
+      }
+  }
+
+  refreshApplicationCollection(userId) {
+    this.applicationCollection = this.afs.collection('users').doc(userId).collection<Application>('applications');
     this.applications = this.applicationCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -82,6 +96,11 @@ export class ApplicationService {
         });
       })
     );
+  }
+
+  getApplicationCollection(): AngularFirestoreCollection<Application> {
+    console.log("The user is: " + this.userID);
+    return this.applicationCollection;
   }
 
   getApplications(): Observable<Application[]> {

@@ -134,14 +134,10 @@ export class CompanyPage implements OnInit {
     if(this.addForm.value.dateOffer != undefined)
       theApplication.status_info.offer.accept_by = this.addForm.value.dateOffer;
 
-    //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications');
-
-    this.applicationService.updateApplication(this.id, theApplication);
+    //this.applicationCollection = this.afs.collection('users').doc('nlW6XvYgazNtRxkREsaB').collection('applications')
 
     await this.applicationService.updateApplication(this.id, theApplication);
     window.location.reload();
-
-
   }
 
   isOffer(){
