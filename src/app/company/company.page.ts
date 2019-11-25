@@ -24,6 +24,7 @@ export class CompanyPage implements OnInit {
   private applicationCollection: AngularFirestoreCollection<Application>;
   private user: Observable<firebase.User>;
   public read: boolean;
+  public textStyle: string;
 
   constructor(private router: Router,private applicationService: ApplicationService,public formBuilder: FormBuilder, route: ActivatedRoute, private afs: AngularFirestore) { 
     this.id = route.snapshot.params.id;
@@ -63,11 +64,15 @@ export class CompanyPage implements OnInit {
       company: new FormControl(this.application.company,Validators.compose([
         Validators.required
       ])),
-      jobTitle: new FormControl(this.application.job_title),
+      jobTitle: new FormControl(this.application.job_title,Validators.compose([
+        Validators.required
+      ])),
       jobDescription: new FormControl(this.application.description),
       jobLink: new FormControl(this.application.link),
       phone: new FormControl(this.application.contact.phone),
-      status: new FormControl(this.application.status),
+      status: new FormControl(this.application.status,Validators.compose([
+        Validators.required
+      ])),
       dateApplied: new FormControl(this.application.date_applied),
       dateInterview: new FormControl(this.application.status_info.interview.date),
       locationInterview: new FormControl(this.application.status_info.interview.location),
@@ -80,11 +85,13 @@ export class CompanyPage implements OnInit {
   ngOnInit() {
     console.log("set");
     this.read = true;
+    this.textStyle = "readMode";
   
   }
 
   editApp(){
     this.read = false;
+    this.textStyle = "editMode";
     this.addForm.value.copmany = this.application.company;
     this.addForm.value.jobTitle = this.application.job_title;
     this.addForm.value.email = this.application.contact.email;
@@ -146,6 +153,7 @@ export class CompanyPage implements OnInit {
     //window.location.reload();
     this.router.navigate(['/company/'+this.id]);
     this.read = true;
+    this.textStyle = "readMode";
   }
 
   isOffer(){

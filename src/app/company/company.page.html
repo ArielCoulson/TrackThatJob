@@ -24,48 +24,51 @@
 
   <form [formGroup]="addForm">
       <ion-list *ngIf = "application">
+            <ion-list-header>
+                   <b>Company Information</b>
+                </ion-list-header>
           <ion-item>
               <ion-label>Company: </ion-label>
-              <ion-input formControlName="company" type="text"  value = "{{application.company}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="company" type="text"  value = "{{application.company}}" [readonly]="readonly()"> </ion-input>
           </ion-item>   
           <ion-item>
               <ion-label>Job Title: </ion-label>
-              <ion-input formControlName="jobTitle" type="text"  value = "{{application.job_title}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="jobTitle" type="text"  value = "{{application.job_title}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Description: </ion-label>
-              <ion-input formControlName="jobDescription" type="text"  value = "{{application.description}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="jobDescription" type="text"  value = "{{application.description}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Link: </ion-label>
-              <ion-input formControlName="jobLink" type="text"  value = "{{application.link}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="jobLink" type="text"  value = "{{application.link}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
         </ion-list>
         <ion-list *ngIf = "application">
           <ion-list-header>
-              Contact Information
+              <b>Contact Information</b>
           </ion-list-header>
           <ion-item>
               <ion-label>Email: </ion-label>
-              <ion-input formControlName="email" type="text"  value = "{{application.contact.email}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="email" type="text"  value = "{{application.contact.email}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
           <ion-item>
               <ion-label>Phone: </ion-label>
-              <ion-input formControlName="phone" type="text"  value = "{{application.contact.phone}}" [readonly]="readonly()"> </ion-input>
+              <ion-input [ngClass]="[textStyle]" formControlName="phone" type="text"  value = "{{application.contact.phone}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
         </ion-list>
       <ion-list *ngIf = "application">
         <ion-list-header>
-          Status
+          <b>Status</b>
         </ion-list-header>
         <ion-item>
             <ion-label>Date Applied: </ion-label>
-            <ion-input formControlName="dateApplied" type="date"  value = "{{application.date_applied}}" [readonly]="readonly()"> </ion-input>
+            <ion-input [ngClass]="[textStyle]" formControlName="dateApplied" type="date"  value = "{{application.date_applied}}" [readonly]="readonly()"> </ion-input>
         </ion-item>
         <ion-item>
             <ion-label>Status: </ion-label>
             
-            <ion-select formControlName="status" [hidden]="readonly()">
+            <ion-select [ngClass]="[textStyle]" formControlName="status" [hidden]="readonly()">
                 <!-- //<ion-select-option value="{{application.status" selected disabled hidden></ion-select-option> -->
                 <ion-select-option value="applied">Applied</ion-select-option>
                 <ion-select-option value="inprogress">In Progress</ion-select-option>
@@ -74,39 +77,39 @@
                 <ion-select-option value="denied">Denied</ion-select-option>
             </ion-select>
         
-            <ion-input [hidden]="!readonly()" formControlName="status" type="text"  value = "{{application.status}}" [readonly]="readonly()"> </ion-input>
+            <ion-input [ngClass]="[textStyle]" [hidden]="!readonly()" formControlName="status" type="text"  value = "{{application.status}}" [readonly]="readonly()"> </ion-input>
         </ion-item>
       </ion-list>
       <div *ngIf = "application">
           <div  *ngIf="isInterview()">
               <ion-item>
                   <ion-label>Interview Date: </ion-label>
-                  <ion-input formControlName="dateInterview" type="date"  value = "{{application.status_info.interview.date}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input [ngClass]="[textStyle]" formControlName="dateInterview" type="date"  value = "{{application.status_info.interview.date}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
               <ion-item>
                   <ion-label>Location: </ion-label>
-                  <ion-input formControlName="locationInterview" type="text"  value = "{{application.status_info.interview.location}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input [ngClass]="[textStyle]" formControlName="locationInterview" type="text"  value = "{{application.status_info.interview.location}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
               <ion-item>
                   <ion-label>Notes: </ion-label>
-                  <ion-input formControlName="notesInterview" type="text"  value = "{{application.status_info.interview.notes}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input [ngClass]="[textStyle]" formControlName="notesInterview" type="text"  value = "{{application.status_info.interview.notes}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
           </div>
           <div  *ngIf="isOffer()">
               <ion-item>
                   <ion-label>Amount Annually: </ion-label>
-                  <ion-input formControlName="amountOffer" type="text"  value = "{{application.status_info.offer.amount}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input [ngClass]="[textStyle]" formControlName="amountOffer" type="text"  value = "{{application.status_info.offer.amount}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
               <ion-item>
                   <ion-label>Accept By: </ion-label>
-                  <ion-input formControlName="dateOffer" type="date"  value = "{{application.status_info.offer.accept_by}}" [readonly]="readonly()"> </ion-input>
+                  <ion-input [ngClass]="[textStyle]" formControlName="dateOffer" type="date"  value = "{{application.status_info.offer.accept_by}}" [readonly]="readonly()"> </ion-input>
               </ion-item> 
           </div>
       </div>
-      <ion-row>
+      <ion-row align-items="center">
             <ion-button (click) = "cancel()" color="danger" [hidden] = "readonly()" shape="round" size="default"  expand="block">cancel</ion-button>
             <ion-button (click) = "update()" [hidden]="readonly()" shape="round" size="default"  expand="block">update</ion-button>
-      </ion-row>
+        </ion-row>
   </form>
 
 </ion-content>
