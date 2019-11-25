@@ -112,8 +112,8 @@ export class CompanyPage implements OnInit {
     return this.read;
   }
   cancel(){
-    this.router.navigate(['/company/'+this.id]);
     this.read = true;
+    window.location.reload()
   }
 
   async update(){
