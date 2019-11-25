@@ -58,9 +58,29 @@ export class CompanyPage implements OnInit {
     //console.log(this.application.company);
   }
 
+  error_messages = {
+    'company': [
+      {type: 'required', message: 'Company information is required'}
+    ],
+    'jobTitle': [
+      {type: 'required', message: 'Job Title is required.'}
+    ],
+    'status': [
+      {type: 'required', message: 'Application status is required.'}
+    ],
+    'email': [
+      { type: 'pattern', message: 'Please enter a valid email.' }
+    ],
+    'phone': [
+      { type: 'pattern', message: 'Please enter a valid phone number, in the specified format.' }
+    ]
+  }
+  
   setupTheForm(){
     this.addForm = new FormGroup({
-      email: new FormControl(this.application.contact.email),
+      email: new FormControl(this.application.contact.email, Validators.compose([
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
       company: new FormControl(this.application.company,Validators.compose([
         Validators.required
       ])),
