@@ -73,17 +73,32 @@ export class ApplicationService {
    */
 
   constructor(private afs: AngularFirestore, private authService: AuthenticateService, private afAuth: AngularFireAuth) {
-    let currentUser = this.authService.userDetails();
+    let currentUser = localStorage.getItem('uid');
 
       if(this.afAuth.auth.currentUser) {
         let user = this.afAuth.auth.currentUser.uid;
       }
 
       if (currentUser) {
-        this.userID = currentUser.uid;
-        this.refreshApplicationCollection(currentUser.uid);
+        this.userID = currentUser;
+        this.refreshApplicationCollection(currentUser);
       }
   }
+  
+  ngoninit(){
+    let currentUser = localStorage.getItem('uid');
+    console.log('ACCESSED ID', currentUser);
+
+      if(this.afAuth.auth.currentUser) {
+        let user = this.afAuth.auth.currentUser.uid;
+      }
+
+      if (currentUser) {
+        this.userID = currentUser;
+        this.refreshApplicationCollection(currentUser);
+      }
+  }
+
 
   refreshApplicationCollection(userId) {
     this.applicationCollection = this.afs.collection('users').doc(userId).collection<Application>('applications');

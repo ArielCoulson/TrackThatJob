@@ -5,6 +5,12 @@
 </ion-header>
  
 <ion-content padding>
+  <div align="center">
+      <h1><font size="10" color="#404040">Track That Job</font></h1>
+      <br/><br/>
+      <img src="assets/trackthatjob.png"/>
+  </div>
+
   <form class="form" [formGroup]="validations_form"  (ngSubmit)="tryRegister(validations_form.value)">
  
     <ion-item>
@@ -31,11 +37,13 @@
       </ng-container>
     </div>
  
-    
+     <br/>
     <ion-button  class="submit-btn" type="submit"  [disabled]="!validations_form.valid">Register</ion-button>
-    <label class="error-message">{{errorMessage}}</label>
+    <br/>
+    <label class="error-message"><font color="red">{{errorMessage}}</font></label>
     <label class="success-message">{{successMessage}}</label>
   </form>
+
   <p class="go-to-login">Already have an account? <a (click)="goLoginPage()">Try to Log In.</a></p>
 </ion-content>
  

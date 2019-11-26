@@ -51,6 +51,8 @@ export class SignupPage implements OnInit {
        console.log(res);
        this.errorMessage = "";
        this.successMessage = "Your account has been created.";
+       const currentUser = this.authService.userDetails();
+       localStorage.setItem('uid',currentUser.uid);
        this.navCtrl.navigateForward('/home');
      }, err => {
        console.log(err);

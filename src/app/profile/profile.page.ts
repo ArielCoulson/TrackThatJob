@@ -27,6 +27,7 @@ export class ProfilePage implements OnInit {
   }
  
   logout(){
+    localStorage.clear();
     this.authService.logoutUser()
     .then(res => {
       console.log(res);

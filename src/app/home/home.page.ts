@@ -8,6 +8,7 @@ import { ApplicationService, Application } from 'src/app/services/application.se
 import { FilterComponent } from 'src/app/filter/filter.component';
 import { PopoverController } from '@ionic/angular';
 import { stringify } from 'querystring';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ export class HomePage implements OnInit {
 
   constructor(private applicationService: ApplicationService, private afs: AngularFirestore, 
     public loadingCtrl: LoadingController) {
+      this.applicationService.ngoninit();
     }
 
   ngOnInit() {
@@ -34,6 +36,8 @@ export class HomePage implements OnInit {
   }
 
   getAllApps(){
+    console.log("reached");
+    console.log("login page uid", localStorage.getItem('uid'));
     this.applicationService.getApplications().subscribe(results => {
       this.applications = results;
       this.loadedApps = results;

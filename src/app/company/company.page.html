@@ -2,7 +2,7 @@
   <div class="toolbar">
     <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button routerLink='/home'>
+          <ion-button (click)="goHome()">
               <ion-icon name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -10,9 +10,13 @@
             <ion-button (click)="editApp()" [hidden]="!readonly()">
                     <ion-icon name="create"></ion-icon>
             </ion-button>
-            <ion-button routerLink='/profile'>
+            <ion-button (click)="update()" [hidden]="readonly()">
+                    <ion-icon name="save"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)='goProfile()'>
               <ion-icon name="contact"></ion-icon>
-          </ion-button>
+            </ion-button>
         </ion-buttons>
         <ion-title [hidden]="!readonly()">Application Info</ion-title>
         <ion-title [hidden]="readonly()">Update Application Info</ion-title>
@@ -28,11 +32,13 @@
                    <b>Company Information</b>
                 </ion-list-header>
           <ion-item>
-              <ion-label>Company: </ion-label>
+              <ion-label *ngIf="readonly()">Company: </ion-label>
+              <ion-label *ngIf="!readonly()">Company<ion-note color="danger">*</ion-note>: </ion-label>
               <ion-input [ngClass]="[textStyle]" formControlName="company" type="text"  value = "{{application.company}}" [readonly]="readonly()"> </ion-input>
           </ion-item>   
           <ion-item>
-              <ion-label>Job Title: </ion-label>
+              <ion-label *ngIf="readonly()">Job Title: </ion-label>
+              <ion-label *ngIf="!readonly()">Job Title:<ion-note color="danger">*</ion-note>: </ion-label>
               <ion-input [ngClass]="[textStyle]" formControlName="jobTitle" type="text"  value = "{{application.job_title}}" [readonly]="readonly()"> </ion-input>
           </ion-item>
           <ion-item>
@@ -51,11 +57,29 @@
           <ion-item>
               <ion-label>Email: </ion-label>
               <ion-input [ngClass]="[textStyle]" formControlName="email" type="text"  value = "{{application.contact.email}}" [readonly]="readonly()"> </ion-input>
-          </ion-item>
+              <ion-buttons [hidden]="!readonly()" slot="end">
+                <ion-button href="mailto: {{application.contact.email}}">
+                    <ion-icon name="mail"></ion-icon>
+                </ion-button>
+              </ion-buttons>          
+        </ion-item>
+        <div class="error-messages">
+                <ng-container *ngFor="let error of error_messages.email">
+                  <div class="error-message" *ngIf="addForm.get('email').hasError(error.type) && (addForm.get('email').dirty || addForm.get('email').touched)">
+                    {{ error.message}}
+                  </div>
+            </ng-container>
+        </div>
           <ion-item>
               <ion-label>Phone: </ion-label>
               <ion-input [ngClass]="[textStyle]" formControlName="phone" type="text"  value = "{{application.contact.phone}}" [readonly]="readonly()"> </ion-input>
-          </ion-item>
+              <ion-buttons [hidden]="!readonly()" slot="end">
+                    <ion-button href="tel:+1{{application.contact.phone}}">
+                      <ion-icon name="call"></ion-icon>
+                    </ion-button>
+              </ion-buttons>
+
+            </ion-item>
         </ion-list>
       <ion-list *ngIf = "application">
         <ion-list-header>
@@ -106,9 +130,12 @@
               </ion-item> 
           </div>
       </div>
+      <ion-col *ngIf="!readonly()">
+            <ion-note> <ion-note color="danger">*</ion-note> indicates field is required</ion-note>
+     </ion-col>
       <ion-row align-items="center">
             <ion-button (click) = "cancel()" color="danger" [hidden] = "readonly()" shape="round" size="default"  expand="block">cancel</ion-button>
-            <ion-button (click) = "update()" [hidden]="readonly()" shape="round" size="default"  expand="block">update</ion-button>
+            <ion-button (click) = "update()" [disabled]="!addForm.valid" [hidden]="readonly()" shape="round" size="default"  expand="block">update</ion-button>
         </ion-row>
   </form>
 
