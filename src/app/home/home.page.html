@@ -39,6 +39,11 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="!(applications)?.length; else showList" id="no-notifications-message" class="item-text-wrap">
+      <ion-icon id="notification-icon" name="cafe"></ion-icon>
+      <p>No applications yet.<br> Get started on your dream job search!</p>
+  </div>
+  <ng-template #showList>
   <ion-list>
     <div slot="start">
     <ion-item slot="end">
@@ -56,7 +61,7 @@
         </ion-select>
         <ion-icon class="iconSize" color="primary" name="funnel"></ion-icon>
     </ion-item>
-  </div>
+  </div> 
     <ion-item-sliding *ngFor ="let app of applications">
       <ion-item button>
         <ion-icon [name]="statusIcon(app.status)" class="status-indicator"></ion-icon>
@@ -70,10 +75,11 @@
       </ion-item>
 
       <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="removeApp(app)"><ion-icon name="trash"></ion-icon>Delete</ion-item-option>
+          <ion-item-option color="danger" (click)="removeApp(app)" routerLink = '/home'><ion-icon name="trash"></ion-icon>Delete</ion-item-option>
       </ion-item-options>
     </ion-item-sliding> 
   </ion-list>
+</ng-template>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink='/add'><ion-icon name="add"></ion-icon></ion-fab-button>
