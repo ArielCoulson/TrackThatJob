@@ -39,7 +39,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="!(applications)?.length; else showList" id="no-notifications-message" class="item-text-wrap">
+  <div *ngIf="!(loadedApps)?.length; else showList" id="no-notifications-message" class="item-text-wrap">
       <ion-icon id="notification-icon" name="cafe"></ion-icon>
       <p>No applications yet.<br> Get started on your dream job search!</p>
   </div>
@@ -62,6 +62,10 @@
         <ion-icon class="iconSize" color="primary" name="funnel"></ion-icon>
     </ion-item>
   </div> 
+  <div *ngIf="!(applications)?.length; else show" id="no-notifications-message" class="item-text-wrap">
+      <ion-icon id="notification-icon" name="warning"></ion-icon>
+      <p>No applications of this kind!</p>
+  </div>
     <ion-item-sliding *ngFor ="let app of applications">
       <ion-item button>
         <ion-icon [name]="statusIcon(app.status)" class="status-indicator"></ion-icon>
